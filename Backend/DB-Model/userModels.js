@@ -37,7 +37,7 @@ const userSchema=mongoose.Schema({
 
 userSchema.methods.generateAuthToken=function()
 {
-    const token=JWT.sign({id:this._id},process.env.JWT_SECRET_KEY);
+    const token=JWT.sign({_id:this._id},process.env.JWT_SECRET_KEY,{expiresIn:'24h'});
     return token;
 }
 
