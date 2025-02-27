@@ -81,12 +81,12 @@ captainSchema.methods.generateAuthToken = function() {
     const token = JWT.sign({_id:this._id},process.env.JWT_SECRET_KEY,{expiresIn:'24h'});
     return token;
 }
-captainSchema.method.comparePassword = async function(password){
+captainSchema.methods.comparePassword = async function(password){
     return await bcrypt.compare(password,this.password);
 }
 captainSchema.statics.hashpassword = async function(password){
     return await bcrypt.hash(password,10);
 }
 
-const captainModel=mongoose.model("Captain",captainSchema);
-module.exports=captainModel;
+const captain=mongoose.model("captain",captainSchema);
+module.exports=captain;
