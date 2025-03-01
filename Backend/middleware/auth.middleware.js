@@ -1,22 +1,21 @@
 const userModel=require('../DB-Model/userModels');
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
-const blacklistToken = require('../DB-Model/blacklistToken');
 const captainModel=require('../DB-Model/captain.model');
+const blackListTokenModel = require('../DB-Model/blacklistToken');
 
 module.exports.authUser=async(req,res,next)=>
 {
-    const token =req.cookies.token ||  req.headers.authorization?.split(' ')[ 1 ];
+    const token = req.cookies.token ||  req.headers.authorization?.split(' ')[ 1 ];
     if(!token)
     {
-        return res.status(401).json({error:"Unauthorized"});
-    }
-    const isBlacklisted= await BlacklistToken.findOne({token});
-    if(isBlacklisted)
-    {
-        return res.status(401).json({error:"Unauthorized"});
+        return res.status(401).json({error:"1"});
     }
 
+    const isBlacklisted = await blackListTokenModel.findOne({ token: token });    
+    if (isBlacklisted) {
+      return res.status(401).json({ error: "2" });
+    }
     try{
 
     const decoded=jwt.verify(token,process.env.JWT_SECRET_KEY);
@@ -27,7 +26,7 @@ module.exports.authUser=async(req,res,next)=>
     }
     catch(err)
     {
-        res.status(401).json({error:"Unauthorized"});
+        res.status(401).json({error:"3"});
     }
 
 }
@@ -39,10 +38,10 @@ module.exports.authCaptain=async(req,res,next)=>
     {
         return res.status(401).json({error:"Unauthorized"});
     }
-    const isBlacklisted= await blacklistToken.findOne({token});
+    const isBlacklisted = await blackListTokenModel.findOne({ token: token });    
     if(isBlacklisted)
     {
-        return res.status(401).json({error:"Unauthorized"});
+        return res.status(401).json({error:"2"});
     }
 
     try{    

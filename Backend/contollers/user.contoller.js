@@ -62,9 +62,10 @@ module.exports.UserProfile=async(req,res)=>{
     res.status(200).json(req.user);
 }
 
-module.exports.logoutUser=async(req,res)=>{
-    res.clearCookie('token');
-    const token=req.cookies.token || req.headers.authorization?.split(' ')[ 1 ];
-    await blacklisttokenModel.create({token});
-    res.status(200).json({message:"Logout Successfully"});
+module.exports.logoutUser = async (req, res) => {
+  res.clearCookie('token');
+  const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
+  const blacklistTokenDoc = new blacklisttokenModel({ token });
+  await blacklistTokenDoc.save();
+  res.status(200).json({ message: "Logout Successfully" });
 }
