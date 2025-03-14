@@ -5,37 +5,43 @@ import axios from 'axios'
 import { UserDataContext } from '../context/UserContext'
 
 const UserprotectedWrapper = ({children}) => {
-   const token = localStorage.getItem('token');
-    const [loading, setloading] = useState(false);
-    const navigate = useNavigate();
-    const {user,setuser} = useContext(UserDataContext);
-    useEffect(() => {
-        if (!token) {
-          navigate('/login');
-        }
-    
+  const token = localStorage.getItem('token')
+  const navigate = useNavigate()
+  const { user, setUser } = useContext(UserDataContext)
+  const [ isLoading, setIsLoading ] = useState(true)
 
-    axios.get(`${import.meta.env.VITE_API_URL}/user/profile`, {
-      headers: {
-        authorization: `Bearer ${token}`
+  useEffect(() => {
+      if (!token) {
+          navigate('/login')
       }
-    }).then((response) => {
-      if (response.status === 200) {
-         setuser(response.data.user);
-         setloading(false);
-      }
-    }).catch((err) => {
-      console.log(err);
-      localStorage.removeItem('token');
-      navigate('/login');
-    });
 
-    if(loading){ 
-      return <div>Loading...</div>;
-    }
-  }, [token]);
+      axios.get(`${import.meta.env.VITE_BASE_URL}/user/profile`, {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      }).then(response => {
+          if (response.status === 200) {
+              setUser(response.data)
+              setIsLoading(false)
+          }
+      })
+          .catch(err => {
+              console.log(err)
+              localStorage.removeItem('token')
+              navigate('/login')
+          })
+  }, [ token ])
+
+  if (isLoading) {
+      return (
+          <div>Loading...</div>
+      )
+  }
+
   return (
-    <>{children}</>
+      <>
+          {children}
+      </>
   )
 }
 

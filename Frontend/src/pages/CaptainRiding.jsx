@@ -3,14 +3,18 @@ import { Link, useLocation } from 'react-router-dom'
 import  { useState,useRef } from 'react'
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
-import FinishRide from '../../componants/FinishRide';
+import FinishRide from '../componants/FinishRide';
+import LiveTracking from '../componants/LiveTracking';
 
 const CaptainRiding = () => {
 
     const [ finishRidePanel, setFinishRidePanel ] = useState(false)
     const finishRidePanelRef = useRef(null)
     const location = useLocation()
+    const rideData = location.state?.ride
+    console.log(rideData);
 
+   
     useGSAP(function () {
         if (finishRidePanel) {
             gsap.to(finishRidePanelRef.current, {
@@ -27,10 +31,7 @@ const CaptainRiding = () => {
     <div className='h-screen relative flex flex-col justify-end'>
 
             <div className='fixed p-6 top-0 flex items-center justify-between w-screen'>
-                <img className='w-16' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="" />
-                <Link to='/captain-home' className=' h-10 w-10 bg-white flex items-center justify-center rounded-full'>
-                    <i className="text-lg font-medium ri-logout-box-r-line"></i>
-                </Link>
+                
             </div>
 
             <div className='h-35 p-6 flex items-center justify-between relative bg-white pt-10'
@@ -46,12 +47,12 @@ const CaptainRiding = () => {
             </div>
             <div ref={finishRidePanelRef} className='fixed w-full z-[500] bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
                 <FinishRide
-                    // ride={rideData}
+                    RideData={rideData}
                     setFinishRidePanel={setFinishRidePanel} />
             </div>
 
             <div className='h-screen fixed w-screen top-0 z-[-1]'>
-             <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="" />
+            <LiveTracking />
             </div>
 
         </div>

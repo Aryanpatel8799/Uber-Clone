@@ -29,7 +29,7 @@ const userSchema=mongoose.Schema({
         minlength:[8,"Password must be at least 8 characters long"],
         select:false,   
     },
-    socketID:
+    socketId:
     {
         type:String
     },
@@ -49,5 +49,5 @@ userSchema.methods.comparePassword = async function(password){
     return await bcrypt.compare(password,this.password);
 }
 
-const User=mongoose.model("User",userSchema);
+const User=mongoose.model("user",userSchema);
 module.exports=User;

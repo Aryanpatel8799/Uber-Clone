@@ -1,6 +1,13 @@
 import React from 'react'
 
 const WaitingForDriver = (props) => {
+
+  if(!props.rideData)
+  {
+    return <div ref={props.WaitingClose}>Loading...</div>
+  }
+  else{
+    
   return (
     <div className='h-105'>
       <h5 ref={props.WaitingClose} className='p-1 text-center left-40 absolute top-0' onClick={() => {
@@ -10,10 +17,10 @@ const WaitingForDriver = (props) => {
       <div className='flex mt-8 items-center justify-between'>
         <img className='h-20' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />
         <div className='text-right flex flex-col justify-evenly'>
-          <h2 className='text-2xl font-medium capitalize'>Jainil Parmar</h2>
-          <h4 className='text-xl font-semibold -mt-1 -mb-1'>GJ 01 EE 1234</h4>
+          <h2 className='text-2xl font-medium capitalize'>{props.rideData.ride?.captain?.fullname.firstname+" "+props.rideData.ride?.captain?.fullname.lastname}</h2>
+          <h4 className='text-xl font-semibold -mt-1 -mb-1'>{props.rideData.ride?.captain.vehicle.Plate}</h4>
           <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
-          <h1 className='text-lg font-semibold'>  OTP </h1>
+          <h1 className='text-lg font-semibold'>OTP : {props.rideData.ride?.otp} </h1>
         </div>
       </div>
 
@@ -21,27 +28,28 @@ const WaitingForDriver = (props) => {
         <div className='flex flex-row justify-between items-center border-b-3 border-b-gray-300  h-20 w-full'>
               <h5 className='text-2xl font-semibold items-center justify-center flex'><i className="ri-route-line"></i></h5>
               <div className='flex flex-col items-start ml-4 mt-3  h-20 w-full'>
-              <h3 className='text-2xl font-bold'>Charusat University</h3>
+              <h3 className='text-2xl font-bold'>{props.rideData.ride?.origin}</h3>
               <h4 className='text-base font-semibold'>opp. Nisarg Hostel , Anand</h4>
               </div>
           </div>
           <div className='flex flex-row justify-between items-center border-b-3 border-b-gray-300  h-20 w-full'>
               <h5 className='text-2xl font-semibold items-center justify-center flex'><i className="ri-route-line"></i></h5>
               <div className='flex flex-col items-start ml-4 mt-4  h-20 w-full'>
-              <h3 className='text-2xl font-bold'>Hotel Blueberry</h3>
+              <h3 className='text-2xl font-bold'>{props.rideData.ride?.destination}</h3>
               <h4 className='text-base font-semibold'>opp. Nisarg Hostel , Anand</h4>
               </div>
           </div>
           <div className='flex flex-row justify-between items-center border-b-3 border-b-gray-300  h-20 w-full'>
               <h5 className=' text-2xl font-semibold items-center justify-center flex'><i className="ri-bank-card-fill"></i></h5>
               <div className='flex flex-col items-start ml-4 mt-4 h-20 w-full'>
-              <h3 className='text-2xl font-bold'>₹ 100</h3>
+              <h3 className='text-2xl font-bold'>₹ {props.rideData.ride?.fare}</h3>
               <h4 className='text-base font-semibold'>Cash / Card / UPI</h4>
               </div>
           </div>
         </div>
       </div>
   )
+}
 }
 
 export default WaitingForDriver

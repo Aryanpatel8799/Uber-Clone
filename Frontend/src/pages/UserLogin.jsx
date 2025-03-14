@@ -5,11 +5,11 @@ import { UserDataContext } from '../context/UserContext'
 import axios from 'axios'
 
 const UserLogin = () => {
+  
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
-  const [userData, setuserData] = useState({})
   const navigate = useNavigate();
-  const {user,setuser} = useContext(UserDataContext);
+  const {user,setUser} = useContext(UserDataContext);
 
  const handleSubmit=async (e)=>{
   e.preventDefault();
@@ -18,7 +18,7 @@ const UserLogin = () => {
   if(response.status===200)
   {
     const data=response.data;
-    setuser(data.user);
+    setUser(data.user);
     localStorage.setItem('token',data.token);
     navigate('/home');
   }

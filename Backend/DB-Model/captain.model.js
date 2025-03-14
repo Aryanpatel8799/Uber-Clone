@@ -49,7 +49,7 @@ const captainSchema=new mongoose.Schema({
         {
             type:String,
             required:true,
-            minlength:[10,"Number plate cannot be less than 10 characters long"],
+            minlength:[3,"Number plate cannot be less than 3 characters long"],
         },
         capacity:
         {
@@ -66,11 +66,11 @@ const captainSchema=new mongoose.Schema({
     },
     location:
     {
-        lat:
+        ltd:
         {
             type: Number,
         },
-        long:
+        lng:
         {
             type: Number,
         }

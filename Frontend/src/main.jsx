@@ -4,17 +4,20 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import UserContext from './context/UserContext.jsx'
-import CaptainContext from './context/CaptainContext.jsx'
 import 'remixicon/fonts/remixicon.css'
+import CaptainContext from './context/CaptainContext.jsx'
+import SocketProvider from './context/socketContext.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-   <CaptainContext>
+
+ <CaptainContext>
    <UserContext>
+   <SocketProvider>
    <BrowserRouter>
     <App />
     </BrowserRouter>
+    </SocketProvider>
    </UserContext>
-    </CaptainContext>
-  </StrictMode>
+   </CaptainContext>
+
 )

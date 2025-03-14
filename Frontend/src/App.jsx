@@ -16,7 +16,9 @@ import CaptainProtectedWrapper from './pages/CaptainProtectedWrapper'
 import CaptainLogout from './pages/CaptainLogout'
 import Riding from './pages/Riding';
 import CaptainRiding from './pages/CaptainRiding'
-
+import React from 'react';
+import CaptainDetails from './componants/CaptainDetails';
+import { CaptainDataContext } from './context/CaptainContext';
 function App() {
   
   

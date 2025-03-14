@@ -13,7 +13,7 @@ const UserSignup = () => {
   const [lastName, setlastName] = useState('')
   const navigate = useNavigate();
   const [ userData, setUserData ] = useState({})
-  const {user,setuser} = useContext(UserDataContext);
+  const {user,setUser} = useContext(UserDataContext);
 
   const handleSubmit= async(e)=>{
     e.preventDefault();
@@ -29,8 +29,7 @@ const UserSignup = () => {
     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/register`,newUser);
     if(response.status===201)
     {
-      const data=response.data;
-      setuser(data.user);
+      setUser(response.data.user);
       localStorage.setItem('token',data.token);
       navigate('/home');
     }
